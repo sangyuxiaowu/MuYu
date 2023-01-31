@@ -1,7 +1,11 @@
 ﻿@page "/"
+@inject IJSRuntime JS
 
-<h1>Hello, world!</h1>
+<img src="/images/muyu.svg" style="height:100%;max-width:100%" @onclick="@ClickHandler" />
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code{
+    async void ClickHandler()
+    {
+        await JS.InvokeAsync<string>("PlayAudioFile");
+    }
+}

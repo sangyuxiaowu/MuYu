@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-	<title>MuYu</title>
+	<title>木鱼</title>
 	<base href="/" />
-	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
 	<link href="css/app.css" rel="stylesheet" />
 	<link href="MuYu.styles.css" rel="stylesheet" />
 </head>
@@ -14,16 +13,17 @@
 
 	<div class="status-bar-safe-area"></div>
 
-	<div id="app">Loading...</div>
-
-	<div id="blazor-error-ui">
-		An unhandled error has occurred.
-		<a href="" class="reload">Reload</a>
-		<a class="dismiss">🗙</a>
-	</div>
-
+	<div id="app"></div>
+    <audio id="player">
+        <source  src="other/muyu.wav" />
+    </audio>
 	<script src="_framework/blazor.webview.js" autostart="false"></script>
-
+	<script>
+        window.PlayAudioFile = () => {
+            var audio = document.getElementById('player');
+            audio.play();
+        }
+	</script>
 </body>
 
 </html>
