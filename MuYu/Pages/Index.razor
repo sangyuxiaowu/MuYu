@@ -1,11 +1,12 @@
 ﻿@page "/"
 @inject IJSRuntime JS
 
-<img src="/images/muyu.svg" style="height:100%;max-width:100%" @onclick="@ClickHandler" />
+<div id="tips"></div>
+<img id="img" src="/images/muyu.svg" style="height:100%;max-width:100%" @onclick="@ClickHandler" />
 
 @code{
     async void ClickHandler()
     {
-        await JS.InvokeAsync<string>("PlayAudioFile");
+        await JS.InvokeAsync<string>("PlayAudioFile","功德+1");
     }
 }

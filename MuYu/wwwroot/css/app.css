@@ -45,3 +45,52 @@ a, .btn-link {
 		padding-left: env(safe-area-inset-left);
 	}
 }
+
+
+
+p.tips {
+    color: #f0b064;
+    font-size: 4em;
+    position: absolute;
+    width: 100%;
+    top: 25%;
+    text-shadow: 2px 3px 1px rgb(6 6 6 / 50%);
+    animation-name: showtips;
+    animation-timing-function: ease-in-out;
+    animation-duration: .3s;
+    opacity: 0;
+}
+
+
+.showbig {
+    animation-timing-function: ease-in-out;
+    animation-duration: .3s;
+    animation-name: showbig;
+}
+
+@keyframes showbig {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes showtips {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    75% {
+        opacity: .9;
+        transform: translateY(-1.5em);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-2em);
+    }
+}

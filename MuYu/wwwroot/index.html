@@ -19,9 +19,28 @@
     </audio>
 	<script src="_framework/blazor.webview.js" autostart="false"></script>
 	<script>
-        window.PlayAudioFile = () => {
+        window.PlayAudioFile = (tips) => {
+            ShowBig();
+            ShowTips(tips);
             var audio = document.getElementById('player');
             audio.play();
+        }
+        function ShowBig() {
+            var img = document.getElementById('img');
+            img.classList.add('showbig');
+            setTimeout(() => {
+                img.classList.remove('showbig');
+            }, 300);
+        }
+        function ShowTips(text) {
+            var p = document.createElement("p");
+            p.classList.add('tips');
+            p.innerHTML = text;
+            var tips = document.getElementById('tips');
+            tips.appendChild(p);
+            setTimeout(() => {
+                tips.removeChild(p)
+            }, 300);
         }
 	</script>
 </body>
