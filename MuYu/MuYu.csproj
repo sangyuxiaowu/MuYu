@@ -90,6 +90,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="Shared\SettingMenu.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Shared\SettingMenu.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Folder Include="Data\" />
       <Folder Include="Resources\Images\" />
       <Folder Include="Resources\Raw\" />

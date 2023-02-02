@@ -1,0 +1,49 @@
+﻿<div class="mask" style="display:@(Show?"flex":"none")">
+    <div class="setting_menu">
+        <div class="title">@MenuTitle</div>
+        <ul class="list">
+            @for (int i=0;i<NavData.Count(); i++)
+            {
+                int index = i;
+                <li @onclick="e=>MenuClick(index)">@NavData[i]</li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+
+    /// <summary>
+    /// 点击回调
+    /// </summary>
+    [Parameter]
+    public EventCallback<int> OnMenuClick { get; set; }
+
+    /// <summary>
+    /// 菜单标题
+    /// </summary>
+    [Parameter]
+    public string MenuTitle { get; set; } = "设置";
+
+    /// <summary>
+    /// 显示隐藏
+    /// </summary>
+    [Parameter]
+    public bool Show { get; set; } = false;
+
+    /// <summary>
+    /// 菜单信息
+    /// </summary>
+    [Parameter]
+    public string[] NavData { get; set; }
+
+    /// <summary>
+    /// 通知点击事件
+    /// </summary>
+    /// <param name="inx">点击的index</param>
+    /// <returns></returns>
+    async Task MenuClick(int inx)
+    {
+        await OnMenuClick.InvokeAsync(inx);
+    }
+}
