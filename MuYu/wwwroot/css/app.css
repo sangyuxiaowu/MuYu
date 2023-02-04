@@ -60,20 +60,32 @@ a, .btn-link {
     .top_box > div {
         display: flex;
     }
+    .top_box .numinfo {
+        flex: 1;
+    }
+        .top_box .numinfo p {
+            color: #F6B16A;
+            width: 100%;
+            padding-right: 10px;
+            text-align: right;
+        }
+        .top_box .numinfo span {
+            color: #e5e5e5;
+        }
 
 
-p.tips {
-    color: #f0b064;
-    font-size: 4em;
-    position: absolute;
-    width: 100%;
-    top: 25%;
-    text-shadow: 2px 3px 1px rgb(6 6 6 / 50%);
-    animation-name: showtips;
-    animation-timing-function: ease-in-out;
-    animation-duration: .3s;
-    opacity: 0;
-}
+    p.tips {
+        color: #f0b064;
+        font-size: 4em;
+        position: absolute;
+        width: 100%;
+        top: 25%;
+        text-shadow: 2px 3px 1px rgb(6 6 6 / 50%);
+        animation-name: showtips;
+        animation-timing-function: ease-in-out;
+        animation-duration: .3s;
+        opacity: 0;
+    }
 
 
 .showbig {
