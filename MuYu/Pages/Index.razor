@@ -70,10 +70,10 @@
     {
         if (firstRender)
         {
-            AllNum = Preferences.Default.Get("all_num", 0);
+            AllNum = Preferences.Default.Get("all_num", 0L);
             if (DateTime.Now.ToShortDateString() == Preferences.Default.Get("today",""))
             {
-                TodayNum = Preferences.Default.Get("today_num", 0);
+                TodayNum = Preferences.Default.Get("today_num", 0L);
             }
         }
     }
