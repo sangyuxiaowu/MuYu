@@ -54,11 +54,13 @@
         {
             _timer.Change(Timeout.Infinite, Timeout.Infinite);
             _isTimerRunning = false;
+            NavData[0] = "自动模式";
         }
         else
         {
             _timer.Change(0, 1000);
             _isTimerRunning = true;
+            NavData[0] = "手动模式";
         }
     }
 
