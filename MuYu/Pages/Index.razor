@@ -1,9 +1,10 @@
 ﻿@page "/"
 @inject IJSRuntime JS
 @inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
 
 <div class="top_box">
-    <div @onclick="@(()=>ShowSetting = true)">
+    <div @onclick="ShowMenu">
         <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <path d="M944.48 552.458667l-182.357333 330.666666a73.792 73.792 0 0 1-64.565334 38.325334h-362.133333a73.792 73.792 0 0 1-64.565333-38.325334l-182.357334-330.666666a75.338667 75.338667 0 0 1 0-72.682667l182.357334-330.666667a73.792 73.792 0 0 1 64.565333-38.325333h362.133333a73.792 73.792 0 0 1 64.565334 38.325333l182.357333 330.666667a75.338667 75.338667 0 0 1 0 72.682667z m-55.989333-31.146667a10.773333 10.773333 0 0 0 0-10.378667l-182.037334-330.666666a10.517333 10.517333 0 0 0-9.205333-5.482667H335.733333a10.517333 10.517333 0 0 0-9.205333 5.482667l-182.037333 330.666666a10.773333 10.773333 0 0 0 0 10.378667l182.037333 330.666667a10.517333 10.517333 0 0 0 9.205333 5.472h361.514667a10.517333 10.517333 0 0 0 9.205333-5.472l182.037334-330.666667zM513.738667 682.666667c-94.261333 0-170.666667-76.405333-170.666667-170.666667s76.405333-170.666667 170.666667-170.666667c94.250667 0 170.666667 76.405333 170.666666 170.666667s-76.416 170.666667-170.666666 170.666667z m0-64c58.912 0 106.666667-47.754667 106.666666-106.666667s-47.754667-106.666667-106.666666-106.666667-106.666667 47.754667-106.666667 106.666667 47.754667 106.666667 106.666667 106.666667z" fill="#F6B16A"></path>
         </svg>
@@ -26,17 +27,45 @@
     /// <summary>
     /// 设置菜单
     /// </summary>
-    private string[] NavData = { "自动模式","文字设置","重置计数","关于软件" };
+    private string[] NavData = { "自动模式","文字设置","重置计数","关于软件","关闭设置" };
     /// <summary>
     /// 获取初始的悬浮文字
     /// </summary>
     private string tipsInfo = Preferences.Default.Get("tips", "功德+1");
 
+    private long AllNum = Data.HitCounter.Count;
+    private long TodayNum = Data.HitCounter.TodayCount;
+
+    private Timer _timer;//自动敲击计时器
+    private bool _isTimerRunning = false;//计时器启动开关
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer(TimerCallback, null, Timeout.Infinite, Timeout.Infinite);
+        base.OnInitialized();
+    }
+    private async void TimerCallback(object state)
+    {
+        await ClickHandler();
+    }
+    private void TimerSwitch()
+    {
+        if (_isTimerRunning)
+        {
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
+            _isTimerRunning = false;
+        }
+        else
+        {
+            _timer.Change(0, 1000);
+            _isTimerRunning = true;
+        }
+    }
 
     async Task ClickHandler()
     {
         await JS.InvokeAsync<string>("PlayAudioFile", tipsInfo);
-        AddNum();
+        Data.HitCounter.Increment();
     }
 
     async Task SetTips()
@@ -47,59 +76,39 @@
         tipsInfo = result;
     }
 
+    void ShowMenu()
+    {
+        ShowSetting = true;
+        // 更新数据
+        AllNum = Data.HitCounter.Count;
+        TodayNum = Data.HitCounter.TodayCount;
+    }
+
     async Task SettingMenuClick(int inx)
     {
+        ShowSetting = false;
         switch (inx)
         {
             case 0://自动切换
+                TimerSwitch();
                 break;
-            case 1:
-                ShowSetting = false;
+            case 1://文字设置
                 await SetTips();
                 break;
+            case 2://重置计数
+                bool answer = await Application.Current.MainPage.DisplayAlert("操作提示", "是否确认重置功德敲击计数？", "确认", "取消");
+                if (answer)
+                {
+                    Data.HitCounter.Reset();
+                    AllNum = 0;
+                    TodayNum = 0;
+                }
+                break;
+            case 3://关于软件
+                Navigation.NavigateTo("https://github.com/sangyuxiaowu/MuYu");
+                break;
         }
     }
 
 
-    #region 敲击计数
-
-    private long AllNum = 0;
-    private long TodayNum = 0;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            AllNum = Preferences.Default.Get("all_num", 0L);
-            if (DateTime.Now.ToShortDateString() == Preferences.Default.Get("today",""))
-            {
-                TodayNum = Preferences.Default.Get("today_num", 0L);
-            }
-        }
-    }
-
-
-    void AddNum()
-    {
-        // 当前日期
-        var today = DateTime.Now.ToShortDateString();
-        // 存储的日期
-        string save_today = Preferences.Default.Get("today", "");
-
-        // 天数未发生变更，防的就是半夜敲的
-        if (save_today == today)
-        {
-            TodayNum++;
-        }else{
-            TodayNum = 1;
-            Preferences.Default.Set("today", today);
-        }
-
-        AllNum++;
-        
-        Preferences.Default.Set("today_num", TodayNum);
-        Preferences.Default.Set("all_num", AllNum);
-    }
-
-    #endregion
 }
