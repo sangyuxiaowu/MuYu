@@ -6,12 +6,12 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity Name="com.sangsq.muyu" Publisher="CN=桑榆肖物" Version="0.0.0.0" />
+  <Identity Name="58922.14450FEF63E6B" Publisher="CN=F99D5A29-C10A-4D01-BEE9-21DBFE6258FA" Version="1.1.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="195630BF-DF79-452F-A97E-02BDDAB8C89C" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="d58fd7e3-a94f-48de-b09e-4212d4af47f2" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>木鱼</DisplayName>
+    <DisplayName>功德木鱼</DisplayName>
     <PublisherDisplayName>桑榆肖物</PublisherDisplayName>
     <Logo>$placeholder$.png</Logo>
   </Properties>
@@ -28,7 +28,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="木鱼"
+        DisplayName="功德木鱼"
         Description="木鱼，电子功德"
         Square150x150Logo="$placeholder$.png"
         Square44x44Logo="$placeholder$.png"
