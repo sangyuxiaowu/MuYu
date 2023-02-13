@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MuYu.PrivacyPolicy"
+             Title="PrivacyPolicy"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+    <ContentPage.Resources>
+        <Style TargetType="Button" Class="PrivacyBtn">
+            <Setter Property="WidthRequest" Value="150" />
+            <Setter Property="FontSize" Value="Title" />
+            <Setter Property="CornerRadius" Value="25" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+
+        <VerticalStackLayout  Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center">
+            <Image Source="logo.png" WidthRequest="130" HeightRequest="130" />
+            <Label Text="木鱼" FontAttributes="Bold" FontSize="Title" HorizontalTextAlignment="Center"/>
+            <Label Text="欢迎使用电子木鱼，您可以设置自定义的敲击文字，并记录您的敲击次数，您也可以开启自动敲击功能。软件开源免费，无服务端，使用过程不会收集您的任何隐私信息。" Margin="0,5,0,0" TextColor="#E1E1E1"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="在使用过程中软件会记录您的敲击次数和您的软件设置信息，这些个人信息将仅存储在本地。" Margin="0,0,0,10" TextColor="#434343" HorizontalTextAlignment="Center" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="8" >
+                <Button Clicked="Exit_Clicked"  class="PrivacyBtn" Text="不同意" BackgroundColor="#676767" HorizontalOptions="End"/>
+                <Button Clicked="Agree_Clicked" class="PrivacyBtn" Grid.Column="1" Text="同意" HorizontalOptions="Start"/>
+            </Grid>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

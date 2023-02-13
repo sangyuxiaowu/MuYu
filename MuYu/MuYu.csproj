@@ -115,16 +115,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Shared\SettingMenu.razor.css" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="Shared\SettingMenu.razor.css" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Resources\Images\" />
-      <Folder Include="Resources\Raw\" />
+      <None Remove="Resources\Images\logo.png" />
     </ItemGroup>
 
 </Project>
