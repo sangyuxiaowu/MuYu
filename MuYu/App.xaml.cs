@@ -7,10 +7,14 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
-#if ANDROID
-        MainPage = Preferences.Default.Get("read", false) ? new MainPage() : new PrivacyPolicy();
+#if DEBUG
+        MainPage = new PrivacyPolicy();
 #else
+        #if ANDROID
+        MainPage = Preferences.Default.Get("read", false) ? new MainPage() : new PrivacyPolicy();
+        #else
         MainPage = new MainPage();
+        #endif
 #endif
     }
 
